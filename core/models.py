@@ -28,6 +28,12 @@ class Livro(models.Model):
     isbn = models.CharField(max_length=32, null=True, blank=True)
     quantidade = models.IntegerField()
     preco = models.DecimalField(max_digits=7, decimal_places=2)
+    categoria = models.ForeignKey(
+        Categoria, on_delete=models.PROTECT, related_name="livros", default=""
+    )
+    editora = models.ForeignKey(
+        Editora, on_delete=models.PROTECT, related_name="livros", default=""
+    )
 
     def __str__(self):
         return f'{self.titulo} ({self.quantidade})'
