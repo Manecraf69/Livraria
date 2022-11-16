@@ -1,10 +1,12 @@
 from django.db import models
 
+
 class Categoria(models.Model):
     descricao = models.CharField(max_length=100)
 
     def __str__(self):
         return self.descricao
+
 
 class Editora(models.Model):
     nome = models.CharField(max_length=100)
@@ -12,6 +14,7 @@ class Editora(models.Model):
 
     def __str__(self):
         return self.nome
+
 
 class Autor(models.Model):
     nome = models.CharField(max_length=255)
@@ -22,6 +25,7 @@ class Autor(models.Model):
 
     class Meta:
         verbose_name_plural = "Autores"
+
 
 class Livro(models.Model):
     titulo = models.CharField(max_length=255)
@@ -34,6 +38,7 @@ class Livro(models.Model):
     editora = models.ForeignKey(
         Editora, on_delete=models.PROTECT, related_name="livros", default=""
     )
+    autores = models.ManyToManyField(Autor, related_name="livros")
 
     def __str__(self):
-        return f'{self.titulo} ({self.quantidade})'
+        return f"{self.titulo} ({self.quantidade})"
